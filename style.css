@@ -2,8 +2,10 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    background: #ffffff;
 }
 canvas {
     display: block;
-    background: #ffffff;
+    background: url('forest.jpg') no-repeat center center;
+    background-size: cover;
 }
