@@ -55,11 +55,14 @@ function update() {
 }
 
 function draw() {
+    // Clear the screen
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Draw block
     ctx.fillStyle = 'black';
     ctx.fillRect(blockX, blockY, BLOCK_WIDTH, BLOCK_HEIGHT);
 
+    // Draw obstacle
     ctx.fillStyle = 'red';
     ctx.fillRect(obstacleX, obstacleY, OBSTACLE_WIDTH, OBSTACLE_HEIGHT);
 }
