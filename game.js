@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 const BLOCK_WIDTH = 50;
 const BLOCK_HEIGHT = 50;
 const BLOCK_JUMP_HEIGHT = 15;
+const GRAVITY = 1; // Gravity effect to pull the block down
 
 const OBSTACLE_WIDTH = 50;
 const OBSTACLE_HEIGHT = 50;
@@ -12,13 +13,17 @@ const OBSTACLE_SPEED = 5;
 let blockX = 50;
 let blockY = canvas.height - BLOCK_HEIGHT;
 let blockYChange = 0;
+let isJumping = false;
 
 let obstacleX = canvas.width;
 let obstacleY = canvas.height - OBSTACLE_HEIGHT;
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowUp') {
-        blockYChange = -BLOCK_JUMP_HEIGHT;
+        if (!isJumping) {
+            blockYChange = -BLOCK_JUMP_HEIGHT;
+            isJumping = true;
+        }
     }
     if (event.key === 'ArrowDown') {
         blockY = canvas.height - BLOCK_HEIGHT / 2;
@@ -35,8 +40,16 @@ document.addEventListener('keyup', (event) => {
 });
 
 function update() {
+    // Apply gravity to the block
+    if (blockY < canvas.height - BLOCK_HEIGHT) {
+        blockYChange += GRAVITY;
+    } else {
+        blockYChange = 0;
+        blockY = canvas.height - BLOCK_HEIGHT;
+        isJumping = false;
+    }
+    
     blockY += blockYChange;
-    blockY = Math.min(Math.max(blockY, canvas.height - BLOCK_HEIGHT), canvas.height - BLOCK_HEIGHT / 2);
 
     obstacleX -= OBSTACLE_SPEED;
     if (obstacleX < 0) {
